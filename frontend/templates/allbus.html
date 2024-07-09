@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'frontend/img/logo.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body id="body">
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" id="loadingSpinner" role="status">
+        <span class="visually-hidden"></span>
+    </div>    
+    <center><h2>HRTC Bus List</h2></center>
+    <button type="button" class="btn btn-warning" id="backButton">Back</button><br><br>
+    <table class="table table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Reg No.</th>
+                <th>Online</th>
+                <th>Depo</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Current Pilot</th>
+                <th>Contact</th>
+                <th>Message</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody id="busTableBody">
+            <!-- Dynamic content will be added here -->
+        </tbody>
+    </table>
+    <!-- Include the script.js file -->
+    <script src="{% static 'frontend/js/allbus.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

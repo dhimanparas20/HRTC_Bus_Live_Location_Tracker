@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HRTC Bus Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'frontend/img/logo.png' %}">
+</head>
+<body>
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" id="loadingSpinner" role="status">
+    <span class="visually-hidden"></span>
+    </div>    
+    <div class="container my-5">
+        <h1 class="text-center">HRTC Bus Tracker</h1>
+        <h5><span id="message"></span></h5>
+        <h6>Note: <span style="color: red;">Use Either Bus No. or From and To stations.</span></h6>
+        <div class="row my-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="regno" placeholder="Enter Bus Registration Number">
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" id="from">
+                    <option value="">Select From Station</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-control" id="to">
+                    <option value="">Select To Station</option>
+                </select>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-12">
+                <table class="table table-striped" id="bus-table">
+                    <thead>
+                        <tr>
+                            <th>Bus</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Message</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-md-12">
+                <div id="map" style="height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const WEBSOCKET_URL = "{{WEBSOCKET_URL}}";
+    </script>
+    <script src="{% static 'frontend/js/home.js' %}"></script>
+</body>
+</html>

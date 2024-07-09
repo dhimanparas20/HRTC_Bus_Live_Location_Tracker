@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/png" href="{% static 'frontend/img/logo.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/styles.css' %}">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body id="body">
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" id="loadingSpinner" role="status">
+        <span class="visually-hidden"></span>
+    </div>
+    <div class="container">
+        <center><h1>Admin Panel</h1></center>
+        <h5><b>Welcome</b>: <span id="name"></span></h5>
+        <h5><strong>Username</strong>: <span id="userid" style="color: cyan;"></span></h5>
+        <h6><span id="message"></span></h6><br>
+
+        <form id="addUser">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" class="form-control" id="fname" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" class="form-control" id="lname" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text"   class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Contact:</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required value="+91">
+            </div><br>
+            <div class="form-group">
+                <label>Role:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="userRole" id="pilot" value="pilot" checked>
+                    <label class="form-check-label" for="pilot">Pilot</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="userRole" id="admin" value="admin">
+                    <label class="form-check-label" for="admin">Admin</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add User</button>
+            
+            <a href="{% url 'bus' %}"><button type="button" class="btn btn-info">Add Bus Route</button></a><br><br>
+            
+            <a href="{% url 'showallbus' %}"><button type="button" class="btn btn-secondary">All Bus List</button></a>
+            
+            <a href="{% url 'showallpilot' %}"><button type="button" class="btn btn-secondary">All Pilot List</button></a><br><br>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Delete user</button>
+            <button class="btn btn-danger" type="button" onclick="Logout()">Logout</button>
+
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: Black;">Enter Username to Delete</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <input id="delid"placeholder="USERNAME" required></input>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" onclick="deluser()" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Include your admin.js script -->
+    <script src="{% static 'frontend/js/admin.js' %}"></script>
+</body>
+</html>

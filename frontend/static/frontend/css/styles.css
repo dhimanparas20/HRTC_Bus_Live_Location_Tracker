@@ -1,0 +1,48 @@
+body{
+    background-color: #1a1a1a; /* Replace with your preferred dark color */
+    color: rgb(255, 255, 255);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  #body {
+    background-color: #1a1a1a; /* Replace with your preferred dark color */
+    color: rgb(255, 255, 255);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+  }
+
+.glass-card {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+  
+  table, th, td {
+          border: 2px solid white;
+          border-collapse: collapse;
+  }
+  th, td {
+          padding: 10px;
+          color: aliceblue;
+          border: 10px solid white;
+          text-align: left;
+  }
+  
+  
+  #backButton{
+    width: 90px;
+  }
+  
+  /* Center the loading spinner */
+  #loadingSpinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10000; /* Ensure the spinner is on top of the overlay */
+  }

@@ -1,0 +1,7 @@
+.vscode
+venv
+app/__pycache__
+api/__pycache__
+frontend/__pycache__
+.env
+db.sqlite3

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Information</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'frontend/img/logo.png' %}">
+    
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body id="body">
+  <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" id="loadingSpinner" role="status">
+    <span class="visually-hidden"></span>
+  </div>  
+    <div class="container">
+      <center><h1>Bus Information</h1></center>
+        <h5><span id="message"></span></h5><br>
+        <form id="busForm">
+          {% csrf_token %}
+            <div class="form-group">
+                <label for="busId">Registration Number</label>
+                <input type="text" class="form-control" id="busId" name="busId" required>
+            </div>
+            <div class="form-group">
+                <label for="depo">Depo</label>
+                <select id="depo" class="form-control narrow-input" required>
+                    <option value="" disabled selected>Select a Depo</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success" >Add Bus</button><br><br>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Delete BusData</button>
+            <button type="button" class="btn btn-warning" id="backButton">Back</button>
+        </form>
+        
+    </div>
+    <!-- Button trigger modal -->
+    
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: Black;">Enter Reg. No. to Delete</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input id="delid"placeholder="Reg. No." required></input>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" onclick="delbus()" class="btn btn-primary">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+    <!-- Include your bus.js script for handling form submission -->
+    <script src="{% static 'frontend/js/admin.js' %}"></script>
+</body>
+</html>

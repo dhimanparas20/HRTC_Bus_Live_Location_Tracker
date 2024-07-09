@@ -135,7 +135,7 @@ async function trackBus(regNo) {
   socket = await new WebSocket(`${WEBSOCKET_URL}/hrtc/${regNo}/`);
 
   socket.onopen = function() {
-      $('#message').text(`Connected to HRTC Server`).css("color","green")
+      $('#message').text(`Connected to HRTC Server`).css("color","yellow")
       console.log('WebSocket connection opened');
   };
 

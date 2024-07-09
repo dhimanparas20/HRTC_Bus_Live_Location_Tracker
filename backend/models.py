@@ -44,6 +44,7 @@ class Employee(models.Model):
 #HRTC Pilot
 class Pilot(models.Model):
     username = models.OneToOneField(User,unique=True,max_length=15,on_delete=models.CASCADE)
+    exactusername = models.CharField(max_length=30, editable=False,blank=True)
     phone_number = PhoneNumberField(blank=True, null=True, unique=True,editable=False)
     isOnline = models.BooleanField(default=False)
     currentBus = models.CharField(max_length=15,blank=True)
@@ -59,6 +60,7 @@ class Pilot(models.Model):
         self.fname = self.username.first_name
         self.lname = self.username.last_name
         self.phone_number = self.username.phone_number
+        self.exactusername = self.username.username
         
         super().save(*args, **kwargs)
 

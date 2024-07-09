@@ -401,7 +401,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-//Get use details in login
+//Get Logged In User details
 async function getUserDetails(){
     spinner(1)
     await $.ajax({

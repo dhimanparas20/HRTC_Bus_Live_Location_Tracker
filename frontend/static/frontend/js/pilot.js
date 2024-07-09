@@ -3,6 +3,7 @@ var socket = null; // Initialize WebSocket variable
 const baseUrl = window.location.origin;
 const csrftoken = getCookie('csrftoken');
 const token = localStorage.getItem('PilotLoginToken');
+const locationSendIntervalTime = 5000
 
 
 //Dont open page if there is no token
@@ -79,7 +80,7 @@ function startLocationUpdates() {
 
             socket.onopen = function(event) {
                 spinner(0);
-                $('#message').text(`Connected to HRTC Server`).css("color","green")
+                $('#message').text(`Connected to HRTC Server`).css("color","yellow")
                 console.log("WebSocket connected.");
                 
                 // Define the Sucess callback function
@@ -99,14 +100,14 @@ function startLocationUpdates() {
                     };
                     
                     //Dont send updates if the bus isnt moving
-                    // if (oldLat !== latitude || oldLong !== longitude) {
+                    if (oldLat !== latitude || oldLong !== longitude) {
                         socket.send(JSON.stringify(data));
                         $('#message').text("Location Started")
                         $('#userid').css("color", "green"); // Change color to green
                         $("#location").html(`Latitude: ${latitude} <br> Longitude: ${longitude}`);
                         oldLat = latitude;
                         oldLong = longitude;
-                    // }
+                    }
                 
                     // console.log('Latitude: ' + latitude + ', Longitude: ' + longitude);
                 }
@@ -124,7 +125,7 @@ function startLocationUpdates() {
                 function doc(){
                 const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback,options);
             }
-                intervalId = setInterval(doc,2000)
+                intervalId = setInterval(doc,locationSendIntervalTime)
                 // intervalId = setInterval(sendLocationData, 2000); 
             };
             

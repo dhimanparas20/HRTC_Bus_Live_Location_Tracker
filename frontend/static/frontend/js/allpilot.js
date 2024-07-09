@@ -24,6 +24,7 @@ $(document).ready(function() {
       var serialNumber = 1;
 
       response.forEach(function(item) {
+        // console.log(item)
           var row = document.createElement('tr');
 
           // Serial number
@@ -54,7 +55,7 @@ $(document).ready(function() {
 
           // Username
           var cellUsername = document.createElement('td');
-          cellUsername.textContent = item.username;
+          cellUsername.textContent = item.exactusername;
           row.appendChild(cellUsername);
 
           tbody.appendChild(row);

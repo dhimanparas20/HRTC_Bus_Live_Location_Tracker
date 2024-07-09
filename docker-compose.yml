@@ -16,7 +16,7 @@ services:
     environment:
       - TERM=xterm
       - DJANGO_SETTINGS_MODULE=app.settings
-    command: daphne -b 0.0.0.0 -p 5000 app.asgi:application
+    command: daphne -b 0.0.0.0 -p 5000 hrtc.asgi:application
     volumes:
       - ./:/app/
     ports:

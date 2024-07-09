@@ -15,7 +15,7 @@ services:
     restart: always
     environment:
       - TERM=xterm
-      - DJANGO_SETTINGS_MODULE=app.settings
+      - DJANGO_SETTINGS_MODULE=hrtc.settings
     command: daphne -b 0.0.0.0 -p 5000 hrtc.asgi:application
     volumes:
       - ./:/app/
@@ -37,6 +37,7 @@ services:
     depends_on:
       - web
     
+
   # certbot:
   #   image: certbot/certbot
   #   container_name: certbot

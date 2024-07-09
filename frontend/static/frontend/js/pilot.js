@@ -85,7 +85,6 @@ function startLocationUpdates() {
                 
                 // Define the Sucess callback function
                 function successCallback(position) {
-                    $('#message').text("success")
 
                     // console.log(position)
                     const latitude = position.coords.latitude;
@@ -102,7 +101,7 @@ function startLocationUpdates() {
                     //Dont send updates if the bus isnt moving
                     if (oldLat !== latitude || oldLong !== longitude) {
                         socket.send(JSON.stringify(data));
-                        $('#message').text("Location Started")
+                        $('#message').text("Location Started").css("color","green")
                         $('#userid').css("color", "green"); // Change color to green
                         $("#location").html(`Latitude: ${latitude} <br> Longitude: ${longitude}`);
                         oldLat = latitude;
@@ -131,7 +130,7 @@ function startLocationUpdates() {
             
             socket.onerror = function(error) {
                 spinner(0);
-                $('#message').text("ws error")
+                $('#message').text("ws error").css("color","red")
                 console.error('WebSocket error:', error);
             };
 
@@ -141,7 +140,7 @@ function startLocationUpdates() {
                 // console.log(response)
                 if(response['error']){
                     stopLocationUpdates()
-                    $('#message').text(response['error'])
+                    $('#message').text(response['error']).css("color","red")
                 }
                 // response = response['message'];
             }
@@ -183,7 +182,7 @@ function startLocationUpdates() {
 function stopLocationUpdates() {
     spinner(0)
     navigator.geolocation.clearWatch(id);
-    $('#message').text("Location Stopped")
+    $('#message').text("Location Stopped").css("color","red")
     clearInterval(intervalId); // Stop interval for sending location updates
     intervalId = null;
     socket.close(); // Close WebSocket connection
@@ -233,7 +232,7 @@ async function Logout(){
                     messageText += key + ': ' + response[key] + '\n';
                 }
             }     
-            $('#message').text(messageText).css('color', 'red');;
+            $('#message').text(messageText).css('color', 'red');
             // alert(messageText)
         } catch (e) {
             spinner(0)

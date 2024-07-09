@@ -8,7 +8,7 @@ router.register(r"users", views.UserViewSet,basename="signup")
 router.register(r"admin", views.AdminViewSet,basename="admin")
 router.register(r"pilot", views.PilotViewSet,basename="pilot")
 router.register(r"bus", views.BusViewSet,basename="bus")
-
+router.register(r"locatebus", views.BusReadonlyViewSet,basename="busredadonly")
 
 urlpatterns = [
     path('',include(router.urls)),   # for above routers

@@ -10,7 +10,7 @@ from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet
+from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet,ViewSet
 from rest_framework.permissions import BasePermission
 
 # from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -82,7 +82,14 @@ class BusViewSet(ModelViewSet):
     authentication_classes = [BearerTokenAuthentication]  
     permission_classes = [IsEmployeeUser] 
     filterset_fields = ['regNo','depo','currentPilot','frm','to']
-    ordering_fields = ['depo']       
+    ordering_fields = ['depo']
+
+# Returns only location of a bus
+class BusReadonlyViewSet(ReadOnlyModelViewSet):
+    queryset = Bu.objects.all()
+    serializer_class = BusSerializer 
+    filterset_fields = ['regNo','depo','currentPilot','frm','to']
+    ordering_fields = ['depo']        
         
 #Employee Viewset        
 class AdminViewSet(ModelViewSet):

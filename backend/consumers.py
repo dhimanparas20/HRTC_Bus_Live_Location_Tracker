@@ -38,6 +38,14 @@ class AsyncHRTCConsumer(AsyncJsonWebsocketConsumer):
         if (self.user != AnonymousUser()):
             pilot_data = {"currentBus": "", "isOnline": False}
             bus_data = {"isOnline": False, "currentPilot": ""}
+            await (self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'chat_message',
+                        'user': self.user.username,
+                        'content': {"message":"Disconnected by Pilot"}
+                    }
+            ))
             await self.update_pilot_and_bus(pilot_data=pilot_data,bus_data=bus_data)
         await self.channel_layer.group_discard(
             self.group_name,
@@ -144,7 +152,14 @@ class SyncHRTCConsumer(JsonWebsocketConsumer):
         if (self.user != AnonymousUser()):
             pilot_data = {"currentBus": "", "isOnline": False}
             bus_data = {"isOnline": False, "currentPilot": ""}
-            
+            self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'chat_message',
+                        'user': self.user.username,
+                        'content': {"message":"Disconnected by Pilot"}
+                    }
+            )
             self.update_pilot_and_bus(pilot_data=pilot_data,bus_data=bus_data)
             
         async_to_sync(self.channel_layer.group_discard)(

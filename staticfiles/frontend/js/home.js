@@ -3,7 +3,6 @@ let currentMarker = null;
 let socket = null;
 const baseUrl = window.location.origin;
 const mapzoom = 16
-
 spinner(0)
 // Initialize the map only once
 document.addEventListener('DOMContentLoaded', function() {
@@ -61,10 +60,8 @@ function searchBuses() {
           spinner(0)
           const busTable = document.getElementById('bus-table').getElementsByTagName('tbody')[0];
           busTable.innerHTML = '';
-          
           data.forEach(bus => {
               const row = document.createElement('tr');
-
               //regno
               const regNoCell = document.createElement('td');
               regNoCell.textContent = bus.regNo;
@@ -105,6 +102,13 @@ function searchBuses() {
               statusCell.textContent = bus.isOnline ? 'Online' : 'Offline';
               row.appendChild(statusCell);
 
+              //Last Updated at 
+              const lastUpdatedCell = document.createElement('td');
+              const dateObject = new Date(bus.lastupdated);
+              const formattedDate = dateObject.toLocaleString('en-US', options);
+              lastUpdatedCell.textContent = formattedDate;
+              row.appendChild(lastUpdatedCell);
+
               //action 
               const actionCell = document.createElement('td');
               const trackBtn = document.createElement('button');
@@ -137,11 +141,42 @@ async function trackBus(regNo) {
   socket.onopen = function() {
       $('#message').text(`Connected to HRTC Server`).css("color","yellow")
       console.log('WebSocket connection opened');
+      spinner(1)
+      //Meanwhile Show the last location of the bus
+      $.ajax({
+          url: `${baseUrl}/api/locatebus/${regNo}`,
+          method: 'GET',
+          success: function(response) {
+              spinner(0)
+              $('#message').text(`The Last Location of Bus`).css("color","yellow")
+              const testMarker =  L.marker([response.latitude, response.longitude]).addTo(map);
+              testMarker.bindPopup(`
+                <b>Bus:</b> ${regNo}<br>
+                <b>Status:</b> offline
+              `).openPopup();
+       
+              // Set map view to the new location
+              map.setView([response.latitude, response.longitude], mapzoom);
+            },
+          error: function(xhr, status, error) {
+              spinner(0)
+              console.error("Error: " + error);
+              console.error("Status: " + status);
+              console.error("Response: " + xhr.responseText);
+          }
+      });
   };
 
  socket.onmessage = function(event) {
       const data = JSON.parse(event.data);
-      // console.log(data)
+      try {
+        if (data['message'] === "Disconnected by Pilot") {
+          $('#message').text('Disconnected by Pilot').css("color", "red");
+          return;
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
 
       // Remove the current marker if it exists
       if (currentMarker) {
@@ -150,7 +185,7 @@ async function trackBus(regNo) {
 
       // Create a new marker at the updated location
       const newMarker =  L.marker([data.latitude, data.longitude]).addTo(map);
-      
+      $('#message').text(`Showing Live Location`).css("color","green")
       //This Fn is made to resolve id to Station Name in Map Marker
       function bindPopupWithStationNames(newMarker, regNo, data) {
         Promise.all([IdToStation(data.frm), IdToStation(data.to)])
@@ -159,7 +194,6 @@ async function trackBus(regNo) {
               <b>Bus:</b> ${regNo}<br>
               <b>From:</b> ${fromStation}<br>
               <b>To:</b> ${toStation}<br>
-              <b>Pilot:</b> ${data.Pilot}<br>
               <b>Status:</b> ${data.isOnline ? 'Online' : 'Offline'}
             `).openPopup();
           })
@@ -224,3 +258,15 @@ function spinner(val) {
       $('#loadingSpinner').addClass('d-none');
   }
 }
+
+// Extract and format the date and time parts separately
+const options = {
+  weekday: 'short', // Short format for weekday (e.g., Tue)
+  year: 'numeric',
+  month: 'short', // Short format for month (e.g., Jul)
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: true // Optional: Use 24-hour clock
+};

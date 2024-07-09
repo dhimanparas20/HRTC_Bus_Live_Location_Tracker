@@ -97,11 +97,8 @@ $(document).ready(async function() {
     // Fetch bus data
     spinner(1)
     $.ajax({
-        url: `${baseUrl}/api/bus/`,
+        url: `${baseUrl}/api/locatebus/`,
         method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
         success: function(response) {
             spinner(0)
             populateBusTable(response);

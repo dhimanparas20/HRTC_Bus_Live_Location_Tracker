@@ -16,7 +16,7 @@ services:
       - DJANGO_SETTINGS_MODULE=hrtc.settings
     volumes:
       - ./:/app/
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
     command: daphne -b 0.0.0.0 -p 5000 hrtc.asgi:application  
     ports:
       - 5000:5000
@@ -33,7 +33,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf/:/etc/letsencrypt/
       - ./certbot/www/:/var/www/certbot/
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
     depends_on:
       - web
     
@@ -43,4 +43,7 @@ services:
     volumes: 
       - ./certbot/conf/:/etc/letsencrypt/
       - ./certbot/www/:/var/www/certbot/
-    command: certonly --webroot -w /var/www/certbot/ --force-renewal --email dhimanparas20@gmail.com -d hrtc.tech -d www.hrtc.tech --agree-tos  
+    command: certonly --webroot -w /var/www/certbot/ --force-renewal --email dhimanparas20@gmail.com -d hrtc.tech -d www.hrtc.tech --agree-tos
+
+volumes:
+  static_volume:      

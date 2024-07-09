@@ -18,7 +18,7 @@ services:
       - ./:/app/
       # - static_volume:/app/staticfiles/
       - ./staticfiles:/staticfiles
-    command: "python3 manage.py && migrate daphne -b 0.0.0.0 -p 5000 hrtc.asgi:application"  
+    command: "python3 manage.py migrate && daphne -b 0.0.0.0 -p 5000 hrtc.asgi:application"  
     ports:
       - 5000:5000
     depends_on:

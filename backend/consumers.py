@@ -37,7 +37,7 @@ class AsyncHRTCConsumer(AsyncJsonWebsocketConsumer):
         # Leave room group
         if (self.user != AnonymousUser()):
             pilot_data = {"currentBus": "", "isOnline": False}
-            bus_data = {"isOnline": False, "currentPilot": "", "frm": "", "to": "","latitude":"0.0","longitude":"0.0"}
+            bus_data = {"isOnline": False, "currentPilot": ""}
             await self.update_pilot_and_bus(pilot_data=pilot_data,bus_data=bus_data)
         await self.channel_layer.group_discard(
             self.group_name,
@@ -143,7 +143,7 @@ class SyncHRTCConsumer(JsonWebsocketConsumer):
         # Leave room group
         if (self.user != AnonymousUser()):
             pilot_data = {"currentBus": "", "isOnline": False}
-            bus_data = {"isOnline": False, "currentPilot": "", "frm": "", "to": "","latitude":"0.0","longitude":"0.0","message":""}
+            bus_data = {"isOnline": False, "currentPilot": ""}
             
             self.update_pilot_and_bus(pilot_data=pilot_data,bus_data=bus_data)
             

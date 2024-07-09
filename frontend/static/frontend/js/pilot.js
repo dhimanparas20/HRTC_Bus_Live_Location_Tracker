@@ -79,6 +79,7 @@ function startLocationUpdates() {
             socket = new WebSocket(`${WEBSOCKET_URL}` + `/hrtc/${busID}/?token=${token}`);
 
             socket.onopen = function(event) {
+                var firstSend =  true
                 spinner(0);
                 $('#message').text(`Connected to HRTC Server`).css("color","yellow")
                 console.log("WebSocket connected.");
@@ -97,7 +98,16 @@ function startLocationUpdates() {
                         latitude: latitude,
                         longitude: longitude
                     };
-                    
+
+                    if (firstSend===true){
+                        socket.send(JSON.stringify(data));
+                        $('#message').text("Location Started").css("color","green")
+                        $('#userid').css("color", "green"); // Change color to green
+                        $("#location").html(`Latitude: ${latitude} <br> Longitude: ${longitude}`);
+                        oldLat = latitude;
+                        oldLong = longitude;
+                        firstSend = false
+                    }
                     //Dont send updates if the bus isnt moving
                     if (oldLat !== latitude || oldLong !== longitude) {
                         socket.send(JSON.stringify(data));

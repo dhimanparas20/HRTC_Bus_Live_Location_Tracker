@@ -160,21 +160,21 @@ class getonline(APIView):
         regNo = request.query_params.get('regno', None)
 
         if (regNo):
-            bus_instances = Bu.objects.filter(regNo=regNo, isOnline=True)            
+            bus_instances = Bu.objects.filter(regNo=regNo)            
             serializer = BusSerializer(bus_instances, many=True)
             return Response(serializer.data)
             
    
         if to==None and frm !=None:
-            bus_instances = Bu.objects.filter(frm=frm, isOnline=True)            
+            bus_instances = Bu.objects.filter(frm=frm)            
             serializer = BusSerializer(bus_instances, many=True)
             return Response(serializer.data)
         elif frm==None and to !=None:
-            bus_instances = Bu.objects.filter(to=to, isOnline=True)
+            bus_instances = Bu.objects.filter(to=to)
             serializer = BusSerializer(bus_instances, many=True)
             return Response(serializer.data)
         elif frm!=None and to!=None:
-            bus_instances = Bu.objects.filter(to=to,frm=frm, isOnline=True)
+            bus_instances = Bu.objects.filter(to=to,frm=frm)
             serializer = BusSerializer(bus_instances, many=True)
             return Response(serializer.data)
         else:

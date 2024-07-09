@@ -38,7 +38,7 @@ services:
       - web
     
   certbot:
-    image: jonasal/nginx-certbot
+    image: certbot/certbot
     container_name: certbot
     volumes: 
       - ./certbot/conf/:/etc/letsencrypt/

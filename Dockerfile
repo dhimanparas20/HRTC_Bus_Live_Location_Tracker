@@ -23,4 +23,4 @@ COPY . /app/
 
 # Expose port and specify the command to run
 EXPOSE 5000
-CMD ["daphne", "-b", "0.0.0.0", "-p", "5000:5000", "app.asgi:application"]
+CMD ["daphne", "-b", "0.0.0.0", "-p", "5000:5000", "hrtc.asgi:application"]

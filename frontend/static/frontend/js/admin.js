@@ -98,7 +98,7 @@ $(document).ready(function () {
             success: function (response) {
                 spinner(0)
                 if (response['regNo']===formData['regNo']){
-                    alert("Done")
+                    // alert("Done")
                     $('#message').text(`Bus: ${response['regNo']} Added successfully`).css('color', 'green');
                 }
             },
@@ -155,7 +155,7 @@ async function createUser(userType,userid){
         success: function (response) {
             spinner(0)
             if (response){
-                alert("Done");
+                // alert("Done");
                 $('#message').text(`User Added successfully`).css('color', 'green');
                 // document.getElementById("addUser").reset();
             }
@@ -249,7 +249,7 @@ function deluser() {
                 spinner(0)
                     // console.log(response)
                     if (response['message']=="User deleted successfully"){
-                        alert("Done")
+                        // alert("Done")
                         $('#message').text(`User: ${toDeleteUsername} Deleted successfully`).css('color', 'green');
                     }else{
                         $('#message').text(`Error: Invalid UserID`).css('color', 'red');
@@ -301,7 +301,7 @@ async function delbus() {
             if (xhr.status === 204) {
                 // Perform actions for 204 response
                 $('#message').text(`Bus: ${toDeleteRegNo} Deleted successfully`).css('color', 'green');;
-                alert("Done");
+                // alert("Done");
             } else {
                 console.log(response);
                 // Perform actions for other successful responses

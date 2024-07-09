@@ -137,7 +137,7 @@ function startLocationUpdates() {
             socket.onmessage = function(event) {
                 spinner(0);
                 var response = JSON.parse(event.data);
-                console.log(response)
+                // console.log(response)
                 if(response['error']){
                     stopLocationUpdates()
                     $('#message').text(response['error'])

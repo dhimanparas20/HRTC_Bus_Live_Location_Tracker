@@ -2,7 +2,7 @@
 
 ## Overview
 
-HRTC Bus Location Tracker is a web application designed to track the locations of buses in real-time. The project consists of a frontend built using Django and a backend built using Flask and HTML, CSS, and JavaScript. The system allows bus drivers to log in, share their location, and let users track buses in real-time. The admin panel provides functionalities for creating, deleting, and managing buses, pilots, and admins.
+HRTC Bus Location Tracker is a web application designed to track the locations of buses in real-time. The project consists of a frontend built using HTML,CSS,JS and a backend built using Django Rest Fw. The system allows bus drivers to log in, share their location, and let users track buses in real-time. The admin panel provides functionalities for creating, deleting, and managing buses, pilots, and admins.
 
 ## Features
 
@@ -72,8 +72,7 @@ HRTC Bus Location Tracker is a web application designed to track the locations o
 
 ### Accessing the Application
 
-- **Backend**: Runs on `http://localhost:5000`
-- **Frontend**: Runs on `http://localhost:5500`
+- **Project**: Runs on `http://localhost:5000`
 - **APIs Documentation**: Access at `http://localhost:5000/swagger/` or `http://localhost:5000/redoc`
 
 ## License
